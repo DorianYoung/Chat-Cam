@@ -6,7 +6,7 @@
 
 
 
-![DorianYoung](https://github.com/DorianYoung/Employee-Tracker/blob/master/eTracker.gif?raw=true)
+![DorianYoung](https://github.com/DorianYoung/Chat-Cam/blob/master/Screen%20Shot%202020-04-04%20at%2012.02.32%20PM.png?raw=true)
 
 https://github.com/DorianYoung
     
