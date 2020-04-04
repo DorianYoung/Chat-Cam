@@ -40,10 +40,14 @@ Chat Cam application using WebRTC, Passport, and Socket.io API's. This applicati
     
     
 > ## Contributions
-Will Brink - github.com/wbrink
-Aaron Williams - github.com/Aaron32365
-Dorian Young - github.com/DorianYoung
-Patrick Shea - github.com/sheapa
+
+Will Brink - https://github.com/wbrink
+
+Aaron Williams - https://github.com/Aaron32365
+
+Dorian Young - https://github.com/DorianYoung
+
+Patrick Shea - https://github.com/sheapa
 
     
     
