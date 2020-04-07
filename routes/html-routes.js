@@ -26,7 +26,7 @@ router.post("/", isAuthenticated, (req,res) => {
 
 
 // get the login page
-router.get("/login", (req,res) => {
+router.get("/login", isLoggedIn, (req,res) => {
   const queryString = req.query.error;
   let obj = {};
   if (queryString == "login-required") {
@@ -39,7 +39,7 @@ router.get("/login", (req,res) => {
 
 
 
-router.post('/login', function(req, res, next) {
+router.post('/login', isLoggedIn, function(req, res, next) {
   passport.authenticate('local', function(err, user, info) {
     if (err) { return next(err); }
     if (!user) { return res.redirect('/login'); }
@@ -53,13 +53,13 @@ router.post('/login', function(req, res, next) {
 
 
 // get the register page
-router.get("/register", (req,res) => {
+router.get("/register", isLoggedIn, (req,res) => {
   res.render("register");
 })
 
 
 // post route for registered user
-router.post("/register", async (req,res) => {
+router.post("/register", isLoggedIn, async (req,res) => {
   const {password, username} = req.body;
   // if username and password have a value and are not empty strings
   // will need to validate forms on the front end as well
@@ -107,7 +107,7 @@ router.get("/profile", isAuthenticated, (req,res) => {
 })
 
 // route for logging user out
-router.get("/logout", (req,res) => {
+router.get("/logout", isAuthenticated, (req,res) => {
   req.logout(); // logout function exposed by passport js
   req.session.save(() => res.redirect('/?msg=logout'));
 })
