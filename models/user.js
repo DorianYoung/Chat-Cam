@@ -8,11 +8,15 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
+      validate: {
+        len: [4,15] // this error causes the server to stop
+      }
     },
     // The password cannot be null
     password: {
       type: DataTypes.STRING,
       allowNull: false
+      // no need for validator here because the password will be long because of hashing
     }
   });
   // Creating a custom method for our User model. This will check if an unhashed password entered by the user can be compared to the hashed password stored in our database
@@ -24,5 +28,7 @@ module.exports = function(sequelize, DataTypes) {
   User.addHook("beforeCreate", function(user) {
     user.password = bcrypt.hashSync(user.password, bcrypt.genSaltSync(10), null);
   });
+
+
   return User;
 };

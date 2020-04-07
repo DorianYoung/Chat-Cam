@@ -11,8 +11,7 @@ var db = require("./models");
 
 // Creating express app and configuring middleware needed for authentication
 var app = express();
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
+
 app.use(express.static("public"));
 
 // what persistent memory we are going to store our session in. by default express-session uses its own implementation using local memory not good for production and can cause memory leaks
@@ -34,6 +33,8 @@ app.use(session({
     secure: false // this should be true if there is going to be an https connection // the cookie will not be sent if secure: true and the site is accessed over http not https 
   } 
 }));
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 app.use(passport.initialize());
 app.use(passport.session());
 

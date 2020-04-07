@@ -20,7 +20,7 @@ passport.use(new LocalStrategy(
       // If there's no user with the given email
       if (!dbUser) {
         return done(null, false, {
-          message: "Incorrect email."
+          message: "Incorrect username."
         });
       }
       // If there is a user with the given email, but the password the user gives us is incorrect
@@ -31,7 +31,9 @@ passport.use(new LocalStrategy(
       }
       // If none of the above, return the user
       return done(null, dbUser);
-    });
+    }).catch(err => {
+      return done(err);
+    })
   }
 ));
 
