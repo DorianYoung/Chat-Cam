@@ -1,31 +1,58 @@
-// Requiring path to so we can use relative routes to our HTML files
-var path = require("path");
+const express = require('express');
+const path = require("path");
+const db = require("../models");
+const passport = require("../config/passport");
 
-// Requiring our custom middleware for checking if a user is logged in
-var isAuthenticated = require("../config/middleware/isAuthenticated");
+// import isAuthenicated middleware
+const isAuthenticated = require("../config/middleware/isAuthenticated");
+const router = express.Router();
 
-module.exports = function(app) {
+router.get("/", (req,res) => {
+  //console.log(req.user);
+  res.render("index", {layout: false});
+})
 
-  app.get("/", function(req, res) {
-    // If the user already has an account send them to the members page
-    if (req.user) {
-      res.redirect("/members");
-    }
-    res.sendFile(path.join(__dirname, "../public/signup.html"));
+// 
+router.post("/", isAuthenticated, (req,res) => {
+  res.render("index");
+})
+
+
+router.get("/login", (req,res) => {
+  res.render("login");
+})
+
+router.post("/login", passport.authenticate("local"), (req,res) => {
+  res.render("index", {msg: "logged in"});
+})
+
+router.get("/register", (req,res) => {
+  res.render("register");
+})
+
+router.post("/register", async (req,res) => {
+  const {password, username} = req.body;
+  
+  try {
+    const newUser = await db.User.create({
+      username: username,
+      password: password
+    }); // password will be hashed inside model/user.js in the beforeCreate hook
+  } catch (error) {
+    console.log(error);
+    res.status(500).end();
+    return;
+  }
+
+  // authenticate the user after they register
+  passport.authenticate('local')(req, res, function() {
+    res.render('index', {msg: "logged in"});
   });
+})
 
-  app.get("/login", function(req, res) {
-    // If the user already has an account send them to the members page
-    if (req.user) {
-      res.redirect("/members");
-    }
-    res.sendFile(path.join(__dirname, "../public/login.html"));
-  });
+router.get("/chat", isAuthenticated, (req,res) => {
+  res.render("chat");
+})
 
-  // Here we've add our isAuthenticated middleware to this route.
-  // If a user who is not logged in tries to access this route they will be redirected to the signup page
-  app.get("/members", isAuthenticated, function(req, res) {
-    res.sendFile(path.join(__dirname, "../public/members.html"));
-  });
 
-};
+module.exports = router;

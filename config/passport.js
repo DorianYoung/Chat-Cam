@@ -7,13 +7,14 @@ var db = require("../models");
 passport.use(new LocalStrategy(
   // Our user will sign in using an email, rather than a "username"
   {
-    usernameField: "email"
+    usernameField: "username",
+    passwordField: "password"
   },
-  function(email, password, done) {
+  function(username, password, done) {
     // When a user tries to sign in this code runs
     db.User.findOne({
       where: {
-        email: email
+        username: username
       }
     }).then(function(dbUser) {
       // If there's no user with the given email
@@ -41,7 +42,7 @@ passport.serializeUser(function(user, done) {
   done(null, user.id);
 });
 
-passport.deserializeUser(function(obj, done) {
+passport.deserializeUser(async (id, done) => {
   let user;
   try {
     user = await db.User.findOne({where: {id: id}}); // if we just return id (done(null, id) )
