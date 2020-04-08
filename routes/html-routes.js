@@ -63,10 +63,11 @@ router.post("/register", isLoggedIn, async (req,res) => {
   const {password, username} = req.body;
   // if username and password have a value and are not empty strings
   // will need to validate forms on the front end as well
-  if (username && password) {
+  if (username && password && password.length > 0) {
     //create user
+    let user;
     try {
-      await db.User.create({
+      user = await db.User.create({
         username: username,
         password: password
       }); // password will be hashed inside model/user.js in the beforeCreate hook
@@ -82,9 +83,13 @@ router.post("/register", isLoggedIn, async (req,res) => {
     }
   
     // authenticate the user after they register
-    passport.authenticate('local')(req, res, function() {
-      req.session.save(() => res.redirect('/?msg=logged-in'));
-    }) (req, res, next);
+    req.login(user, function(err) {
+      if (!err) {
+        req.session.save(() => res.redirect("/profile"));
+      } else {
+        console.log(err);
+      }
+    });
 
     // req.session.save(() => res.redirect("/login"));
   } else {
