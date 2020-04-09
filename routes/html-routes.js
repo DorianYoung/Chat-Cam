@@ -8,6 +8,10 @@ const isAuthenticated = require("../config/middleware/isAuthenticated"); // if u
 const isLoggedIn = require("../config/middleware/isLoggedIn"); // if user is logged in redirect to home
 const router = express.Router();
 
+const uuid = require('uuid');
+
+
+
 // get the index page
 router.get("/", (req,res) => {
   let obj = {};
@@ -20,7 +24,48 @@ router.get("/", (req,res) => {
 })
 
 // post request when user tries to join meeting
-router.post("/", isAuthenticated, (req,res) => {
+router.post("/", isAuthenticated, async (req,res) => {
+  const name = uuid.v4();
+  let room;
+  // if user wants to create room
+  if (req.body.createRoom) { 
+    try {
+      room = await db.Room.create({name: name});
+      await db.User.update({RoomId: room.id}, {
+        where: {username: req.user.username}
+      });
+    } catch (error) {
+      console.log(error);
+      res.redirect("/");
+      return;
+    }
+    req.session.room = room.name;
+    req.session.save(() => {res.redirect(`/chat/${room.name}`)});
+    return;
+  }
+  
+  // if user wants to join already existing room
+  if(req.body.roomName) {
+    room = await db.Room.findOne({where: {name: req.body.roomName}});
+    // if the room exists
+    if (room) {
+      await db.User.update({RoomId: room.id}, {
+        where: {username: req.user.username}
+      });
+      req.session.room = room.name;
+      req.session.save(() => {res.redirect(`/chat/${room.name}`)});
+      return;
+    } else {
+      res.redirect("/");
+      return;
+    }
+  }
+  
+  res.render("index");
+})
+
+router.get("/test", isAuthenticated, async (req,res) => {
+  console.log(req.user.Room);
   res.render("index");
 })
 
@@ -63,8 +108,7 @@ router.post("/register", isLoggedIn, async (req,res) => {
   const {password, username} = req.body;
   // if username and password have a value and are not empty strings
   // will need to validate forms on the front end as well
-  if (username && password && password.length > 0) {
-    //create user
+  if (username && password) {
     let user;
     try {
       user = await db.User.create({
@@ -82,7 +126,7 @@ router.post("/register", isLoggedIn, async (req,res) => {
       return;
     }
   
-    // authenticate the user after they register
+    // login user
     req.login(user, function(err) {
       if (!err) {
         req.session.save(() => res.redirect("/profile"));
@@ -90,8 +134,7 @@ router.post("/register", isLoggedIn, async (req,res) => {
         console.log(err);
       }
     });
-
-    // req.session.save(() => res.redirect("/login"));
+    
   } else {
     res.render("register");
     return;
@@ -101,7 +144,13 @@ router.post("/register", isLoggedIn, async (req,res) => {
 
 
 // route to the chat area
-router.get("/chat", isAuthenticated, (req,res) => {
+router.get("/chat/:id", isAuthenticated, (req,res) => {
+  // if user doesn't have this room saved then kick them out
+  const roomId = req.params.id;
+  if (req.session.room !== roomId) {
+    res.redirect("/"); // todo: send message access denied
+    return;
+  }
   res.render("chat");
 })
 

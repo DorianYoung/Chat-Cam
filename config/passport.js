@@ -15,7 +15,8 @@ passport.use(new LocalStrategy(
     db.User.findOne({
       where: {
         username: username
-      }
+      },
+      include: db.Room
     }).then(function(dbUser) {
       // If there's no user with the given email
       if (!dbUser) {
