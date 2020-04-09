@@ -40,7 +40,7 @@ router.post("/", isAuthenticated, async (req,res) => {
       return;
     }
     req.session.room = room.name;
-    req.session.save(() => {res.redirect(`/chat/${room.name}`)});
+    req.session.save(() => {res.redirect(`/chat?room=${room.name}`)});
     return;
   }
   
@@ -53,7 +53,7 @@ router.post("/", isAuthenticated, async (req,res) => {
         where: {username: req.user.username}
       });
       req.session.room = room.name;
-      req.session.save(() => {res.redirect(`/chat/${room.name}`)});
+      req.session.save(() => {res.redirect(`/chat?room=${room.name}`)});
       return;
     } else {
       res.redirect("/");
@@ -144,9 +144,9 @@ router.post("/register", isLoggedIn, async (req,res) => {
 
 
 // route to the chat area
-router.get("/chat/:id", isAuthenticated, (req,res) => {
+router.get("/chat", isAuthenticated, (req,res) => {
   // if user doesn't have this room saved then kick them out
-  const roomId = req.params.id;
+  const roomId = req.query.room;
   if (req.session.room !== roomId) {
     res.redirect("/"); // todo: send message access denied
     return;
