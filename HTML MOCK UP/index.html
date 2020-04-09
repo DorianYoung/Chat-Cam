@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- Required meta tags -->
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <!--Let browser know website is optimized for mobile-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!--Import Google Icon Font-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <!--Jquery lib -->
+  <script src="https://code.jquery.com/jquery.js"></script>
+  <!-- Custom CSS -->
+  <link rel="stylesheet" type="text/css" href="./assets/css/style.css">
+  <title>WebRTC Video Conference</title>
+</head>
+
+<!-- ---------------------- Header ---------------------- -->
+
+
+<!-- ---------------------- Main ---------------------- -->
+
+<main>
+
+  <header>
+    <nav>
+      <div class="nav-wrapper">
+        <a href="#" class="brand-logo">Cam </a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <li><a href="#login">login</a></li>
+          <li><a href="#register">register</a></li>
+          <li><a href="#info">Info</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <body>
+    <div class="container">
+      <h1>Cum chat with us...</h1>
+      <p>We're a highly secure & totally descreet solution for all your peer to peer video chat needs.</p>
+    </div>
+    </div>
+    <div class="parallax-container">
+      <div class="parallax"><img src="assets/images/zebra.jpg" alt="" class="responsive"></div>
+    </div>
+    <div id="login" class="container">
+      <h1>Login & Start Chatting</h1>
+      <p>Definition of voyeurism
+        1a: the desires or behavior of a voyeur: such as
+        a: the practice of obtaining sexual gratification from observing others.
+        b: the practice of taking pleasure in observing something private, sordid, or scandalous.
+      </p>
+    </div>
+    <div class="parallax-container">
+      <div class="parallax"><img src="assets/images/zebra.jpg" alt="" class="responsive"></div>
+    </div>
+    <div id="register" class="container">
+      <h1>Register Now</h1>
+      <p>Definition of exhibitionism
+        1a: a perversion in which sexual gratification is obtained from the indecent exposure of one's genitals (as to a
+        stranger)
+        b: an act of such exposure
+        2: the act or practice of behaving so as to attract attention to oneself</p>
+      <div>
+        <div id="consultingRoom" style="display: none;">
+          <video id="localVideo" autoplay></video>
+          <video id="remoteVideo" autoplay></video>
+        </div>
+      </div>
+    </div>
+    <div class="parallax-container">
+      <div class="parallax"><img src="assets/images/zebra.jpg" alt="" class="responsive"></div>
+    </div>
+    </div>
+    <div id="info" class="container">
+      <h1>Who we are...</h1>
+      <p>Definition of enabler
+        1a: one that enables another to achieve an end
+      </p>
+    </div>
+    </div>
+
+
+    <!-- ---------------------- Scripts ---------------------- -->
+
+    <script>
+      $(document).ready(function () {
+        $('.parallax').parallax();
+      });
+
+    </script>
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!-- Socet io  -->
+    <script src="http://localhost:3000/socket.io/socket.io.js"></script>
+    <!-- Custom front end js. -->
+    <script src="./client.js"></script>
+
+  </body>
+</main>
+
+<!-- ---------------------- Footer ---------------------- -->
+
+<footer>
+  <footer class="page-footer">
+    <div class="container">
+      <div class="row">
+        <div class="col l6 s12">
+          <h5 class="white-text">Credits!</h5>
+          <p class="grey-text text-lighten-4">Learn more about our development team by followint the adjacent links!
+            Please add us on Linked in to colaborate on future projects.</p>
+        </div>
+        <div class="col l4 offset-l2 s12">
+          <h5 class="white-text">Dev Team</h5>
+          <ul>
+            <li><a class="grey-text text-lighten-3" href="https://github.com/DorianYoung">Dorian Young</a></li>
+            <li><a class="grey-text text-lighten-3" href="https://wbrink.github.io/">Will Brink</a></li>
+            <li><a class="grey-text text-lighten-3" href="https://github.com/Aaron32365">Aaron Williams</a></li>
+            <li><a class="grey-text text-lighten-3" href="https://sheapa.github.io/portfolio/">Patrick Shea</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-copyright">
+      <div class="container">
+        © 2020 Copyright Text
+        <a class="grey-text text-lighten-4 right" href="#!">Source Code Refrences</a>
+      </div>
+    </div>
+  </footer>
+</footer>
+
+</html>
