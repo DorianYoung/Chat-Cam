@@ -11,6 +11,9 @@ var roomNumber;
 var localStream;
 var remoteStream;
 var rtcPeerConnection;
+const queryString = window.location.search;
+const urlParams = new URLSearchParams(queryString);
+const room = urlParams.get("room");
 var iceServers = {
   iceServers: [
     { urls: "stun:stun.services.mozilla.com" },
@@ -23,11 +26,11 @@ var isCaller;
 // Let's do this
 var socket = io("http://localhost:3000");
 
-btnGoRoom.onclick = function () {
+btnGoRoom.onclick = function() {
   if (inputRoomNumber.value === "") {
     alert("Please type a room number");
   } else {
-    roomNumber = inputRoomNumber.value;
+    roomNumber = room;
     socket.emit("create or join", roomNumber);
     divSelectRoom.style = "display: none;";
     divConsultingRoom.style = "display: block;";
@@ -35,33 +38,33 @@ btnGoRoom.onclick = function () {
 };
 
 // message handlers
-socket.on("created", function (room) {
+socket.on("created", function(room) {
   navigator.mediaDevices
     .getUserMedia(streamConstraints)
-    .then(function (stream) {
+    .then(function(stream) {
       localStream = stream;
       localVideo.srcObject = stream;
       isCaller = true;
     })
-    .catch(function (err) {
+    .catch(function(err) {
       console.log("An error ocurred when accessing media devices", err);
     });
 });
 
-socket.on("joined", function (room) {
+socket.on("joined", function(room) {
   navigator.mediaDevices
     .getUserMedia(streamConstraints)
-    .then(function (stream) {
+    .then(function(stream) {
       localStream = stream;
       localVideo.srcObject = stream;
       socket.emit("ready", roomNumber);
     })
-    .catch(function (err) {
+    .catch(function(err) {
       console.log("An error ocurred when accessing media devices", err);
     });
 });
 
-socket.on("candidate", function (event) {
+socket.on("candidate", function(event) {
   var candidate = new RTCIceCandidate({
     sdpMLineIndex: event.label,
     candidate: event.candidate,
@@ -69,7 +72,7 @@ socket.on("candidate", function (event) {
   rtcPeerConnection.addIceCandidate(candidate);
 });
 
-socket.on("ready", function () {
+socket.on("ready", function() {
   if (isCaller) {
     rtcPeerConnection = new RTCPeerConnection(iceServers);
     rtcPeerConnection.onicecandidate = onIceCandidate;
@@ -92,7 +95,7 @@ socket.on("ready", function () {
   }
 });
 
-socket.on("offer", function (event) {
+socket.on("offer", function(event) {
   if (!isCaller) {
     rtcPeerConnection = new RTCPeerConnection(iceServers);
     rtcPeerConnection.onicecandidate = onIceCandidate;
@@ -116,7 +119,7 @@ socket.on("offer", function (event) {
   }
 });
 
-socket.on("answer", function (event) {
+socket.on("answer", function(event) {
   rtcPeerConnection.setRemoteDescription(new RTCSessionDescription(event));
 });
 
