@@ -32,6 +32,11 @@ main {
   flex: 1 0 auto;
 }
 
+/* handlebars feedback message */
+.feedback {
+  padding: 5px;
+}
+
 /* navbar color */
 nav {
   background-color: var(--custom-dark);
@@ -58,7 +63,7 @@ h4 {
 /* smaller container used for login and registration */
 .custom-container {
   margin: auto;
-  margin-top: 50px;
+  margin-top: 20px;
   max-width: 500px;
   background-color: var(--custom-light2);
   border-radius: 5px;
@@ -152,11 +157,12 @@ form {
   flex-wrap: wrap;
   justify-content: space-around;
   align-items: center;
+  color: var(--custom-light);
 }
 
-/* change icon colors */
-i {
-  color: var(--custom-light);
+/* change background color to light aqua */
+.light {
+  background-color: var(--custom-light);
 }
 
 .clickable {
@@ -166,6 +172,17 @@ i {
 /* chat textarea to type messages */
 textarea {
   color: var(--custom-light2);
+}
+
+/* adds 10 pixels to margin bottom */
+.mb-10 {
+  margin-bottom: 10px;
+}
+
+/* create new user link in login.handlebars */
+#register-link {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
 }
 
 @media screen and (min-width: 992px) {

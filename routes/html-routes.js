@@ -73,13 +73,13 @@ router.get("/test", isAuthenticated, async (req,res) => {
 // get the login page
 router.get("/login", isLoggedIn, (req,res) => {
   const queryString = req.query.error;
-  let obj = {};
+  let msg = "";
   if (queryString == "login-required") {
-    obj.msg = "Login Required";
+    msg = "Login Required";
   } else if (queryString == "invalid") {
-    obj.msg = "Invalid Login";
+    msg = "Invalid Login";
   }
-  res.render("login", obj);
+  res.render("login", {layout: false, msg: msg});
 });
 
 
@@ -99,16 +99,18 @@ router.post('/login', isLoggedIn, function(req, res, next) {
 
 // get the register page
 router.get("/register", isLoggedIn, (req,res) => {
-  res.render("register");
+  res.render("register", {layout: false});
 })
 
 
 // post route for registered user
 router.post("/register", isLoggedIn, async (req,res) => {
-  const {password, username} = req.body;
+  const {password, username, confirmPassword} = req.body;
+
+  console.log(password + " " + username );
   // if username and password have a value and are not empty strings
   // will need to validate forms on the front end as well
-  if (username && password) {
+  if (username && password && password === confirmPassword) {
     let user;
     try {
       user = await db.User.create({
@@ -119,10 +121,10 @@ router.post("/register", isLoggedIn, async (req,res) => {
       console.log(error);
       // if error is validation error
       if (error.name === "SequelizeValidationError") {
-        res.render("register", {msg: "Username must be between 4 and 14 characters"});
+        res.render("register", {layout:false, msg: "Username must be between 4 and 14 characters"});
         return
       }
-      res.render("register");
+      res.render("register", {layout: false});
       return;
     }
   
@@ -136,7 +138,7 @@ router.post("/register", isLoggedIn, async (req,res) => {
     });
     
   } else {
-    res.render("register");
+    res.render("register", {layout: false});
     return;
   }
   
@@ -151,7 +153,7 @@ router.get("/chat", isAuthenticated, (req,res) => {
     res.redirect("/"); // todo: send message access denied
     return;
   }
-  res.render("chat");
+  res.render("chat", {layout: false});
 })
 
 // show logged in user profile
