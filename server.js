@@ -1,5 +1,9 @@
 // Requiring necessary npm packages
 var express = require("express");
+var app = express();
+var http = require("http").Server(app);
+var io = require("socket.io")(http);
+
 var session = require("express-session");
 // Requiring passport as we've configured it
 var passport = require("./config/passport");
@@ -9,8 +13,6 @@ const exphbs = require("express-handlebars");
 var PORT = process.env.PORT || 8080;
 var db = require("./models");
 
-// Creating express app and configuring middleware needed for authentication
-var app = express();
 
 app.use(express.static("public"));
 
@@ -49,9 +51,62 @@ app.use(htmlRoutes);
 
 
 
+//////////////////////////////////////////////
+/////////////// socket.io/////////////////////
+io.on("connection", function (socket) {
+  console.log("a user connected");
+
+  // webrtc 2 people functionality
+  socket.on("create or join", function (room) {
+    console.log("create or join to room ", room);
+
+    var myRoom = io.sockets.adapter.rooms[room] || { length: 0 };
+    var numClients = myRoom.length;
+
+    console.log(room, " has ", numClients, " clients");
+
+    if (numClients == 0) {
+      socket.join(room);
+      socket.emit("created", room);
+    } else if (numClients == 1) {
+      socket.join(room);
+      socket.emit("joined", room);
+    } else {
+      socket.emit("full", room);
+    }
+  });
+
+  socket.on("ready", function (room) {
+    socket.broadcast.to(room).emit("ready");
+  });
+
+  socket.on("candidate", function (event) {
+    socket.broadcast.to(event.room).emit("candidate", event);
+  });
+
+  socket.on("offer", function (event) {
+    socket.broadcast.to(event.room).emit("offer", event.sdp);
+  });
+
+  socket.on("answer", function (event) {
+    socket.broadcast.to(event.room).emit("answer", event.sdp);
+  });
+
+  socket.on("disconnect",function(event) {
+    console.log("user left");
+  })
+});
+// webrtc 2 people functionality
+
+
+//////////////////////////////////////////////
+/////////////// socket.io/////////////////////
+
+
 // Syncing our database and logging a message to the user upon success
+// handling socket.io
 db.sequelize.sync({force: true}).then(function() {
-  app.listen(PORT, function() {
+  http.listen(PORT, function() {
     console.log("==> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.", PORT, PORT);
   });
 });

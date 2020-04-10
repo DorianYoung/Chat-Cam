@@ -1,10 +1,3 @@
-/* from before */
-form.signup,
-form.login {
-  margin-top: 50px;
-}
-
-/* setup color variables */
 :root {
   --custom-dark: rgba(11, 19, 43, 1);
   --custom-navy: rgba(28, 37, 65, 1);
@@ -19,7 +12,6 @@ body {
   height: 100%;
 }
 
-/* so the footer goes to bottom of page */
 body {
   background-color: var(--custom-blue);
   color: var(--custom-black);
@@ -32,7 +24,6 @@ main {
   flex: 1 0 auto;
 }
 
-/* navbar color */
 nav {
   background-color: var(--custom-dark);
 }
@@ -105,7 +96,6 @@ form {
   color: var(--custom-light);
 }
 
-/* button hover */
 .btn:hover {
   background-color: var(--custom-light);
   color: var(--custom-dark);
@@ -124,11 +114,11 @@ form {
 
 /* for chatpage */
 #video-area {
+  /* padding: 1px; */
   margin-top: 15px;
   height: 70vh;
 }
 
-/* where the messages appear */
 .chatWindow {
   height: 70vh;
   background-color: var(--custom-light2);
@@ -137,7 +127,6 @@ form {
   border-radius: 5px;
 }
 
-/* where user inputs chat */
 #chatInput {
   padding: 0;
   background-color: var(--custom-light2);
@@ -146,7 +135,6 @@ form {
   border-radius: 5px;
 }
 
-/* mute and video toggle */
 .video-controls {
   display: flex;
   flex-wrap: wrap;
@@ -154,7 +142,6 @@ form {
   align-items: center;
 }
 
-/* change icon colors */
 i {
   color: var(--custom-light);
 }
@@ -163,7 +150,6 @@ i {
   cursor: pointer;
 }
 
-/* chat textarea to type messages */
 textarea {
   color: var(--custom-light2);
 }

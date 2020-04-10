@@ -23,18 +23,21 @@ var iceServers = {
 var streamConstraints = { audio: false, video: { width: 640, height: 480 } };
 var isCaller;
 
-// Let's do this
-var socket = io("http://localhost:3000");
+// // Let's do this
+// // var socket = io("http://localhost:3000");
+var socket = io();
 
 btnGoRoom.onclick = function() {
-  if (inputRoomNumber.value === "") {
-    alert("Please type a room number");
-  } else {
+//   // if (inputRoomNumber.value === "") {
+//   //   alert("Please type a room number");
+//   // } else {
     roomNumber = room;
+    console.log(roomNumber);
+    
     socket.emit("create or join", roomNumber);
     divSelectRoom.style = "display: none;";
     divConsultingRoom.style = "display: block;";
-  }
+  // }
 };
 
 // message handlers
@@ -78,7 +81,7 @@ socket.on("ready", function() {
     rtcPeerConnection.onicecandidate = onIceCandidate;
     rtcPeerConnection.ontrack = onAddStream;
     rtcPeerConnection.addTrack(localStream.getTracks()[0], localStream);
-    //rtcPeerConnection.addTrack(localStream.getTracks()[1], localStream);
+    // rtcPeerConnection.addTrack(localStream.getTracks()[1], localStream);
     rtcPeerConnection
       .createOffer()
       .then((sessionDescription) => {
@@ -101,7 +104,7 @@ socket.on("offer", function(event) {
     rtcPeerConnection.onicecandidate = onIceCandidate;
     rtcPeerConnection.ontrack = onAddStream;
     rtcPeerConnection.addTrack(localStream.getTracks()[0], localStream);
-    //rtcPeerConnection.addTrack(localStream.getTracks()[1], localStream);
+    // rtcPeerConnection.addTrack(localStream.getTracks()[1], localStream);
     rtcPeerConnection.setRemoteDescription(new RTCSessionDescription(event));
     rtcPeerConnection
       .createAnswer()
@@ -123,7 +126,7 @@ socket.on("answer", function(event) {
   rtcPeerConnection.setRemoteDescription(new RTCSessionDescription(event));
 });
 
-// handler functions
+// // handler functions
 function onIceCandidate(event) {
   if (event.candidate) {
     console.log("sending ice candidate");
