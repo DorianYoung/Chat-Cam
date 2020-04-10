@@ -1,13 +1,30 @@
+{{> nav}}
 
-<h1>Homepage for website</h1>
-{{ msg }}
+<main>
+  {{#if msg }}
+    {{#if error}}
+      <div class="feedback valign-wrapper custom-container error">
+        <i class="tiny material-icons helper-icon">info_outline</i>
+        <span class="valign-wrapper" data-error="wrong" data-success="right">{{ msg }}</span>
+      </div>
+    {{/if}}
+    {{#unless error}}
+      <div class="feedback valign-wrapper custom-container success">
+        <i class="tiny material-icons helper-icon">info_outline</i>
+        <span class="valign-wrapper" data-error="wrong" data-success="right">{{ msg }}</span>
+      </div>
+    {{/unless}}
+    {{/if}}
+  <h1>Homepage for website</h1>
 
 
-<form action="/" method="POST" id="joinForm">
-  <input type="text" name="roomName" placeholder="Room Number">
-</form>
+  <form action="/" method="POST" id="joinForm">
+    <input type="text" name="roomName" placeholder="Room Number">
+  </form>
 
 
-<form action="/" method="POST", id="createForm">
-  <input type="submit" value="Create Room" name="createRoom">
-</form>
+  <form action="/" method="POST", id="createForm">
+    <input type="submit" value="Create Room" name="createRoom">
+  </form>
+
+</main>

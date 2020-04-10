@@ -12,6 +12,7 @@ form.login {
   --custom-aqua: rgba(91, 192, 190, 1);
   --custom-light: rgba(111, 255, 233, 1);
   --custom-light2: rgb(238, 248, 246);
+  --custom-error: #f96167;
 }
 
 html,
@@ -63,7 +64,7 @@ h4 {
 /* smaller container used for login and registration */
 .custom-container {
   margin: auto;
-  margin-top: 20px;
+  margin-top: 30px;
   max-width: 500px;
   background-color: var(--custom-light2);
   border-radius: 5px;
@@ -161,8 +162,13 @@ form {
 }
 
 /* change background color to light aqua */
-.light {
+.success {
   background-color: var(--custom-light);
+}
+
+/* made for handlebars msgs */
+.error {
+  background-color: var(--custom-error);
 }
 
 .clickable {
@@ -177,6 +183,11 @@ textarea {
 /* adds 10 pixels to margin bottom */
 .mb-10 {
   margin-bottom: 10px;
+}
+
+/* marginbottom 0 class */
+.mb-0 {
+  margin-bottom: 0px;
 }
 
 /* create new user link in login.handlebars */

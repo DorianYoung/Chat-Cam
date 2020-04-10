@@ -1,4 +1,24 @@
-<h1>Profile page</h1>
 
-<p>Username: {{ username }}</p>
-<p>Joined: {{ createdAt }}</p>
+
+{{> nav}}
+
+<main>
+  {{#if msg }}
+        {{#if error}}
+            <div class="feedback valign-wrapper custom-container error">
+                <i class="tiny material-icons helper-icon">info_outline</i>
+                <span class="valign-wrapper" data-error="wrong" data-success="right">{{ msg }}</span>
+            </div>
+        {{/if}}
+        {{#unless error}}
+            <div class="feedback valign-wrapper custom-container success">
+                <i class="tiny material-icons helper-icon">info_outline</i>
+                <span class="valign-wrapper" data-error="wrong" data-success="right">{{ msg }}</span>
+            </div>
+        {{/unless}}
+    {{/if}}
+  <h1>Profile page</h1>
+
+  <p>Username: {{ username }}</p>
+  <p>Joined: {{ createdAt }}</p>
+</main>

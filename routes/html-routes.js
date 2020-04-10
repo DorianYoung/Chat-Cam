@@ -14,13 +14,20 @@ const uuid = require('uuid');
 
 // get the index page
 router.get("/", (req,res) => {
-  let obj = {};
+  // if the user just logged out
   if (req.query.msg == "logout") {
-    obj.msg = "You are successfully logged out";
-  } else if (req.query.msg == "logged-in") {
-    obj.msg = "You are logged in";
+   res.render("index", {msg: "You are Successfully Logged Out"});
+   return;
+  } 
+
+  // if the user is logged in
+  if (req.user) {
+    res.render("index", {username: req.user.username, loggedIn: true});
+    return;
   }
-  res.render("index", obj);
+  
+  // if no errors and the user is not logged in
+  res.render("index", {});
 })
 
 // post request when user tries to join meeting
@@ -64,6 +71,7 @@ router.post("/", isAuthenticated, async (req,res) => {
   res.render("index");
 })
 
+//test route
 router.get("/test", isAuthenticated, async (req,res) => {
   console.log(req.user.Room);
   res.render("index");
@@ -72,14 +80,16 @@ router.get("/test", isAuthenticated, async (req,res) => {
 
 // get the login page
 router.get("/login", isLoggedIn, (req,res) => {
+  const obj = {};
   const queryString = req.query.error;
-  let msg = "";
   if (queryString == "login-required") {
-    msg = "Login Required";
+    obj.msg = "Login Required";
+    obj.error = true;
   } else if (queryString == "invalid") {
-    msg = "Invalid Login";
+    objmsg = "Invalid Login";
+    obj.error = true;
   }
-  res.render("login", {layout: false, msg: msg});
+  res.render("login", obj);
 });
 
 
@@ -87,7 +97,7 @@ router.get("/login", isLoggedIn, (req,res) => {
 router.post('/login', isLoggedIn, function(req, res, next) {
   passport.authenticate('local', function(err, user, info) {
     if (err) { return next(err); }
-    if (!user) { return res.redirect('/login'); }
+    if (!user) { return res.render("login", {msg: "Invalid Login", error: true}); }
     req.logIn(user, function(err) {
       if (err) { return next(err); }
       // must save session before redirecting. Many web browsers will redirect before they even finish receiving the response.
@@ -99,7 +109,7 @@ router.post('/login', isLoggedIn, function(req, res, next) {
 
 // get the register page
 router.get("/register", isLoggedIn, (req,res) => {
-  res.render("register", {layout: false});
+  res.render("register");
 })
 
 
@@ -121,10 +131,10 @@ router.post("/register", isLoggedIn, async (req,res) => {
       console.log(error);
       // if error is validation error
       if (error.name === "SequelizeValidationError") {
-        res.render("register", {layout:false, msg: "Username must be between 4 and 14 characters"});
+        res.render("register", {msg: "Username must be between 4 and 14 characters"});
         return
       }
-      res.render("register", {layout: false});
+      res.render("register");
       return;
     }
   
@@ -138,7 +148,7 @@ router.post("/register", isLoggedIn, async (req,res) => {
     });
     
   } else {
-    res.render("register", {layout: false});
+    res.render("register", {msg: "Invalid Registration", error: true});
     return;
   }
   
@@ -153,13 +163,13 @@ router.get("/chat", isAuthenticated, (req,res) => {
     res.redirect("/"); // todo: send message access denied
     return;
   }
-  res.render("chat", {layout: false});
+  res.render("chat", {layout: false, loggedIn: true, username: req.user.username});
 })
 
 // show logged in user profile
 router.get("/profile", isAuthenticated, (req,res) => {
   const {username, createdAt} = req.user;
-  res.render("profile", {username: username, createdAt: createdAt});
+  res.render("profile", {loggedIn: true, username: username, createdAt: createdAt});
 })
 
 // route for logging user out
