@@ -47,7 +47,7 @@ router.post("/", isAuthenticated, async (req,res) => {
       return;
     }
     req.session.room = room.name;
-    req.session.save(() => {res.redirect(`/chat?room=${room.name}`)});
+    req.session.save(() => {res.redirect(`/chat?room=${room.name}&user=${req.user.username}`)});
     return;
   }
   
@@ -60,7 +60,7 @@ router.post("/", isAuthenticated, async (req,res) => {
         where: {username: req.user.username}
       });
       req.session.room = room.name;
-      req.session.save(() => {res.redirect(`/chat?room=${room.name}`)});
+      req.session.save(() => {res.redirect(`/chat?room=${room.name}&user=${req.user.username}`)});
       return;
     } else {
       res.redirect("/");
@@ -134,7 +134,7 @@ router.post("/register", isLoggedIn, async (req,res) => {
         res.render("register", {msg: "Username must be between 4 and 14 characters"});
         return
       }
-      res.render("register", {msg: "User already exists"});
+      res.render("register", {msg: "User already exists", error: true});
       return;
     }
   
@@ -157,10 +157,15 @@ router.post("/register", isLoggedIn, async (req,res) => {
 
 // route to the chat area
 router.get("/chat", isAuthenticated, async (req,res) => {
-  if (!req.query.room) {
+  if (!req.query.room || !req.query.user) {
     res.redirect("/");
     return;
   } 
+
+  // check if user matches user query parameter so they can't put false usernames
+  if (req.user.username !== req.query.user) {
+    return res.redirect("/");
+  }
 
   // check if room is in database
   const room = await db.Room.findOne({where: {name: req.query.room}});
@@ -169,12 +174,13 @@ router.get("/chat", isAuthenticated, async (req,res) => {
     return;
   }
 
-  // if user doesn't have this room saved in their session then add this to their session and roomid to their user row in database 
+  // if user doens't have this in their session then kick them out
   if (req.session.room !== req.query.room) {
     //update user
-    const user = await db.User.update({RoomId: room.id}, {where: {id: req.user.id}});
-    req.session.room = room.name;
-    req.session.save(() => {return res.render("chat", {layout: false, loggedIn: true, username: req.user.username})});
+    // const user = await db.User.update({RoomId: room.id}, {where: {id: req.user.id}});
+    // req.session.room = room.name;
+    // req.session.save(() => {return res.render("chat", {layout: false, loggedIn: true, username: req.user.username})});
+    return redirect("/");
   }
 
   // if the user does have this in their session 
