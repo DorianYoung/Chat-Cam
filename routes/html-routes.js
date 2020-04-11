@@ -134,7 +134,7 @@ router.post("/register", isLoggedIn, async (req,res) => {
         res.render("register", {msg: "Username must be between 4 and 14 characters"});
         return
       }
-      res.render("register");
+      res.render("register", {msg: "User already exists"});
       return;
     }
   
@@ -169,11 +169,15 @@ router.get("/chat", isAuthenticated, async (req,res) => {
     return;
   }
 
-  // if user doesn't have this room saved in their session then kick them out
+  // if user doesn't have this room saved in their session then add this to their session and roomid to their user row in database 
   if (req.session.room !== req.query.room) {
-    res.redirect("/"); // todo: send message access denied
-    return;
+    //update user
+    const user = await db.User.update({RoomId: room.id}, {where: {id: req.user.id}});
+    req.session.room = room.name;
+    req.session.save(() => {return res.render("chat", {layout: false, loggedIn: true, username: req.user.username})});
   }
+
+  // if the user does have this in their session 
   res.render("chat", {layout: false, loggedIn: true, username: req.user.username});
 })
 
