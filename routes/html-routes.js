@@ -134,7 +134,7 @@ router.post("/register", isLoggedIn, async (req,res) => {
         res.render("register", {msg: "Username must be between 4 and 14 characters"});
         return
       }
-      res.render("register");
+      res.render("register", {msg: "User already exists"});
       return;
     }
   
