@@ -156,10 +156,21 @@ router.post("/register", isLoggedIn, async (req,res) => {
 
 
 // route to the chat area
-router.get("/chat", isAuthenticated, (req,res) => {
-  // if user doesn't have this room saved then kick them out
-  const roomId = req.query.room;
-  if (req.session.room !== roomId) {
+router.get("/chat", isAuthenticated, async (req,res) => {
+  if (!req.query.room) {
+    res.redirect("/");
+    return;
+  } 
+
+  // check if room is in database
+  const room = await db.Room.findOne({where: {name: req.query.room}});
+  if (!room) {
+    res.redirect("/");
+    return;
+  }
+
+  // if user doesn't have this room saved in their session then kick them out
+  if (req.session.room !== req.query.room) {
     res.redirect("/"); // todo: send message access denied
     return;
   }
@@ -167,9 +178,16 @@ router.get("/chat", isAuthenticated, (req,res) => {
 })
 
 // show logged in user profile
-router.get("/profile", isAuthenticated, (req,res) => {
-  const {username, createdAt} = req.user;
-  res.render("profile", {loggedIn: true, username: username, createdAt: createdAt});
+router.get("/profile", isAuthenticated, async (req,res) => {
+  // const {username, createdAt, id} = req.user;
+  // if user has been to or created room
+  const user = await db.User.findOne({where: {id: req.user.id}, include: db.Room});
+  if (req.user.RoomId) {
+    const users = await db.User.findAll({where: {RoomId: req.user.RoomId}});
+    let share = users.map(elem => elem.username); // handlebars doesn't play nice with collections of sequelize
+    return res.render("profile", {loggedIn: true, username: req.user.username, username: user.username, createdAt: user.createdAt, share: share, room: user.Room.name });
+  } 
+  res.render("profile", {loggedIn: true, username: req.user.username, createdAt: user.createdAt});
 })
 
 // route for logging user out

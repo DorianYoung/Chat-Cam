@@ -185,15 +185,23 @@ textarea {
   margin-bottom: 10px;
 }
 
-/* marginbottom 0 class */
-.mb-0 {
-  margin-bottom: 0px;
-}
-
 /* create new user link in login.handlebars */
 #register-link {
   margin-top: 2rem;
   margin-bottom: 1rem;
+}
+
+.mt-20 {
+  margin-top: 20px;
+}
+
+.bg-grey {
+  background-color: #e0e0e0;
+}
+
+#edit-profile-btn {
+  width: 100%;
+  margin-bottom: 20px;
 }
 
 @media screen and (min-width: 992px) {
