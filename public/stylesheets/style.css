@@ -215,3 +215,13 @@ textarea {
     width: 90%;
   }
 }
+
+#video-area {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#localVideo {
+  max-width: 400px;
+  min-height: 300px;
+}

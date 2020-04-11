@@ -17,10 +17,12 @@ const room = urlParams.get("room");
 var iceServers = {
   iceServers: [
     { urls: "stun:stun.services.mozilla.com" },
-    { urls: "stun:stun.l.google.com:19302" },
-  ],
+    { urls: "stun:stun.l.google.com:19302" }
+  ]
 };
-var streamConstraints = { audio: false, video: { width: 640, height: 480 } };
+
+var streamConstraints = { audio: false, video: true };
+// { width: 640, height: 480 }
 var isCaller;
 
 // // Let's do this
@@ -28,15 +30,15 @@ var isCaller;
 var socket = io();
 
 btnGoRoom.onclick = function() {
-//   // if (inputRoomNumber.value === "") {
-//   //   alert("Please type a room number");
-//   // } else {
-    roomNumber = room;
-    console.log(roomNumber);
-    
-    socket.emit("create or join", roomNumber);
-    divSelectRoom.style = "display: none;";
-    divConsultingRoom.style = "display: block;";
+  // if (inputRoomNumber.value === "") {
+  //   alert("Please type a room number");
+  // } else {
+  roomNumber = room;
+  console.log(roomNumber);
+
+  socket.emit("create or join", roomNumber);
+  divSelectRoom.style = "display: none;";
+  divConsultingRoom.style = "display: block;";
   // }
 };
 
@@ -70,7 +72,7 @@ socket.on("joined", function(room) {
 socket.on("candidate", function(event) {
   var candidate = new RTCIceCandidate({
     sdpMLineIndex: event.label,
-    candidate: event.candidate,
+    candidate: event.candidate
   });
   rtcPeerConnection.addIceCandidate(candidate);
 });
@@ -84,15 +86,15 @@ socket.on("ready", function() {
     // rtcPeerConnection.addTrack(localStream.getTracks()[1], localStream);
     rtcPeerConnection
       .createOffer()
-      .then((sessionDescription) => {
+      .then(sessionDescription => {
         rtcPeerConnection.setLocalDescription(sessionDescription);
         socket.emit("offer", {
           type: "offer",
           sdp: sessionDescription,
-          room: roomNumber,
+          room: roomNumber
         });
       })
-      .catch((error) => {
+      .catch(error => {
         console.log(error);
       });
   }
@@ -108,15 +110,15 @@ socket.on("offer", function(event) {
     rtcPeerConnection.setRemoteDescription(new RTCSessionDescription(event));
     rtcPeerConnection
       .createAnswer()
-      .then((sessionDescription) => {
+      .then(sessionDescription => {
         rtcPeerConnection.setLocalDescription(sessionDescription);
         socket.emit("answer", {
           type: "answer",
           sdp: sessionDescription,
-          room: roomNumber,
+          room: roomNumber
         });
       })
-      .catch((error) => {
+      .catch(error => {
         console.log(error);
       });
   }
@@ -135,7 +137,7 @@ function onIceCandidate(event) {
       label: event.candidate.sdpMLineIndex,
       id: event.candidate.sdpMid,
       candidate: event.candidate.candidate,
-      room: roomNumber,
+      room: roomNumber
     });
   }
 }
