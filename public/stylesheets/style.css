@@ -23,6 +23,7 @@ body {
 /* so the footer goes to bottom of page */
 body {
   background-color: var(--custom-blue);
+
   color: var(--custom-black);
   display: flex;
   min-height: 100vh;
@@ -216,12 +217,13 @@ textarea {
   }
 }
 
-#video-area {
-  display: flex;
-  flex-wrap: wrap;
+#localVideo {
+  max-width: 450px;
+
+  min-height: 325px;
 }
 
-#localVideo {
-  max-width: 400px;
-  min-height: 300px;
+#remoteVideo {
+  max-width: 450px;
+  min-height: 325px;
 }
