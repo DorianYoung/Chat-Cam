@@ -154,7 +154,7 @@ form {
 }
 
 /* mute and video toggle */
-.video-controls {
+.video {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
@@ -218,12 +218,12 @@ textarea {
 }
 
 #localVideo {
-  max-width: 450px;
+  max-width: 100%;
 
-  min-height: 325px;
+  min-height: 100%;
 }
 
 #remoteVideo {
-  max-width: 450px;
-  min-height: 325px;
+  max-width: 100%;
+  min-height: 100%;
 }

@@ -25,12 +25,13 @@
     <div class="row" id="video-area">
       <div class="col s9">
         <div id="consultingRoom" class="video-container">
-          <div id="selectRoom">
-            <label>Type the room number</label>
-            <input id="roomNumber" type="text" />
-            <button id="goRoom">Go</button>
-          </div>
+
           <video id="remoteVideo" autoplay></video>
+          <br>
+          {{!-- <i class="medium material-icons clickable" id="videocam_off">videocam_off</i>
+          <i class="medium material-icons hide clickable" id="videocam_on">videocam</i>
+          <i class="medium material-icons clickable" id="mic_off">mic_off</i>
+          <i class="medium material-icons hide clickable" id="mic_on">mic</i> --}}
 
           {{!-- <video id="localVideo" height="300px" controls>
             <source src="movie.mp4" type="video/mp4">
@@ -38,7 +39,7 @@
 
           </video>
           <br> --}}
-          <video id="localVideo" autoplay></video>
+          {{!-- <video id="localVideo" autoplay></video> --}}
           {{!-- <video id="remoteVideo3" autoplay></video>
             <video id="remoteVideo4" autoplay></video> --}}
 
@@ -61,11 +62,18 @@
         </div>
       </form>
 
-      <div class="col s3 video-controls">
-        <i class="medium material-icons clickable" id="videocam_off">videocam_off</i>
-        <i class="medium material-icons hide clickable" id="videocam_on">videocam</i>
-        <i class="medium material-icons clickable" id="mic_off">mic_off</i>
-        <i class="medium material-icons hide clickable" id="mic_on">mic</i>
+      <div class="col s3 video" id="test">
+        <div id="consultingRoom" class="video-container">
+          <div id="selectRoom">
+            <label>Type the room number</label>
+            <input id="roomNumber" type="text" />
+            <button id="goRoom">Go</button>
+          </div>
+          <video id="localVideo" autoplay></video>
+        </div>
+
+
+
       </div>
     </div>
   </main>
