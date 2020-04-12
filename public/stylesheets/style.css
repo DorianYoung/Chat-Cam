@@ -22,7 +22,7 @@ body {
 
 /* so the footer goes to bottom of page */
 body {
-  background-color: var(--custom-blue);
+  background-color: lightgray;
 
   color: var(--custom-black);
   display: flex;
@@ -226,11 +226,14 @@ textarea {
 
 #localVideo {
   max-width: 100%;
-
   min-height: 100%;
 }
 
 #remoteVideo {
   max-width: 100%;
   min-height: 100%;
+}
+
+#goRoom {
+  margin-top: 10px;
 }

@@ -25,7 +25,6 @@ var streamConstraints = { audio: false, video: true };
 // { width: 640, height: 480 }
 var isCaller;
 
-// // Let's do this
 // // var socket = io("http://localhost:3000");
 var socket = io();
 
@@ -85,7 +84,6 @@ socket.on("ready", function() {
     rtcPeerConnection.onicecandidate = onIceCandidate;
     rtcPeerConnection.ontrack = onAddStream;
     rtcPeerConnection.addTrack(localStream.getTracks()[0], localStream);
-    // rtcPeerConnection.addTrack(localStream.getTracks()[1], localStream);
     rtcPeerConnection
       .createOffer()
       .then(sessionDescription => {
@@ -148,3 +146,43 @@ function onAddStream(event) {
   remoteVideo.srcObject = event.streams[0];
   remoteStream = event.stream;
 }
+
+//Audio and video controls
+
+const micOn = document.querySelector("#mic_off");
+const micOff = document.querySelector("#mic_on");
+const videocamOff = document.querySelector("#videocam_off");
+const videocamOn = document.querySelector("#videocam_on");
+
+document.addEventListener("DOMContentLoaded", function() {
+  var elems = document.querySelectorAll(".dropdown-trigger");
+  var instances = M.Dropdown.init(elems, { alignment: "bottom" });
+
+  micOn.addEventListener("click", e => {
+    // turn the mic back on
+
+    micOn.classList.add("hide");
+    micOff.classList.remove("hide");
+  });
+
+  micOff.addEventListener("click", e => {
+    // turn the mic off
+
+    micOn.classList.remove("hide");
+    micOff.classList.add("hide");
+  });
+
+  videocamOn.addEventListener("click", e => {
+    // turn the mic back on
+
+    videocamOn.classList.add("hide");
+    videocamOff.classList.remove("hide");
+  });
+
+  videocamOff.addEventListener("click", e => {
+    // turn the mic off
+
+    videocamOn.classList.remove("hide");
+    videocamOff.classList.add("hide");
+  });
+});

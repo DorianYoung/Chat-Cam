@@ -22,27 +22,11 @@
   {{> nav}}
 
   <main>
+
     <div class="row" id="video-area">
       <div class="col s12 m9 l9 xl9">
         <div id="consultingRoom" class="video-container">
-
           <video id="remoteVideo" autoplay></video>
-          <br>
-          {{!-- <i class="medium material-icons clickable" id="videocam_off">videocam_off</i>
-          <i class="medium material-icons hide clickable" id="videocam_on">videocam</i>
-          <i class="medium material-icons clickable" id="mic_off">mic_off</i>
-          <i class="medium material-icons hide clickable" id="mic_on">mic</i> --}}
-
-          {{!-- <video id="localVideo" height="300px" controls>
-            <source src="movie.mp4" type="video/mp4">
-            <source src="movie.ogg" type="video/ogg">
-
-          </video>
-          <br> --}}
-          {{!-- <video id="localVideo" autoplay></video> --}}
-          {{!-- <video id="remoteVideo3" autoplay></video>
-            <video id="remoteVideo4" autoplay></video> --}}
-
         </div>
       </div>
 
@@ -64,18 +48,12 @@
 
       <div class="col s12 m4 l4 xl4  video" id="test">
         <div id="consultingRoom" class="video-container">
-
           <button id="goRoom">Start video & audio</button>
           <video id="localVideo" autoplay></video>
-
-
-
         </div>
-
-
-
       </div>
     </div>
+
   </main>
 
   <footer class="page-footer">
@@ -94,49 +72,6 @@
   <script src="/socket.io/socket.io.js"></script>
   <script src="client.js"></script>
 
-  <script>
-    const micOn = document.querySelector("#mic_off");
-    const micOff = document.querySelector("#mic_on");
-    const videocamOff = document.querySelector("#videocam_off");
-    const videocamOn = document.querySelector("#videocam_on");
-
-    document.addEventListener('DOMContentLoaded', function () {
-      var elems = document.querySelectorAll('.dropdown-trigger');
-      var instances = M.Dropdown.init(elems, { alignment: "bottom" });
-
-      micOn.addEventListener("click", (e) => {
-        // turn the mic back on
-
-        micOn.classList.add("hide");
-        micOff.classList.remove("hide");
-      })
-
-      micOff.addEventListener("click", (e) => {
-        // turn the mic off
-
-        micOn.classList.remove("hide");
-        micOff.classList.add("hide");
-      })
-
-      videocamOn.addEventListener("click", (e) => {
-        // turn the mic back on
-
-        videocamOn.classList.add("hide");
-        videocamOff.classList.remove("hide");
-      })
-
-      videocamOff.addEventListener("click", (e) => {
-        // turn the mic off
-
-        videocamOn.classList.remove("hide");
-        videocamOff.classList.add("hide");
-      })
-
-    });
-
-
-
-  </script>
 </body>
 
 </html>
