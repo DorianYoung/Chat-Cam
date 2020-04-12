@@ -23,7 +23,7 @@
 
   <main>
     <div class="row" id="video-area">
-      <div class="col s9">
+      <div class="col s12 m9 l9 xl9">
         <div id="consultingRoom" class="video-container">
 
           <video id="remoteVideo" autoplay></video>
@@ -46,30 +46,30 @@
         </div>
       </div>
 
-      <div class="col s3 chatWindow">
+      <div class="col s12 m3 l3 xl3 chatWindow">
         Chat Window
       </div>
     </div>
 
     <!-- input and mutes -->
     <div class="row valign-wrapper">
-      <form class="col s9" id="chatInput">
+      <form class="col s12 m8 l8 xl8" id="chatInput">
         <div class="row">
-          <div class="input-field col s12">
+          <div class="input-field col">
             <textarea id="textarea1" class="materialize-textarea"></textarea>
             <label for="textarea1">Chat Here</label>
           </div>
         </div>
       </form>
 
-      <div class="col s3 video" id="test">
+      <div class="col s12 m4 l4 xl4  video" id="test">
         <div id="consultingRoom" class="video-container">
-          <div id="selectRoom">
-            <label>Type the room number</label>
-            <input id="roomNumber" type="text" />
-            <button id="goRoom">Go</button>
-          </div>
+
+          <button id="goRoom">Start video & audio</button>
           <video id="localVideo" autoplay></video>
+
+
+
         </div>
 
 

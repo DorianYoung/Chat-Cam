@@ -33,12 +33,14 @@ btnGoRoom.onclick = function() {
   // if (inputRoomNumber.value === "") {
   //   alert("Please type a room number");
   // } else {
+  this.style.visibility = "hidden";
   roomNumber = room;
   console.log(roomNumber);
 
   socket.emit("create or join", roomNumber);
   divSelectRoom.style = "display: none;";
   divConsultingRoom.style = "display: block;";
+
   // }
 };
 

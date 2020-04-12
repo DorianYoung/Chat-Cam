@@ -137,7 +137,7 @@ form {
 
 /* where the messages appear */
 .chatWindow {
-  height: 70vh;
+  height: 100%;
   background-color: var(--custom-light2);
   border: var(--custom-aqua) 1px solid;
   padding: 7px;
@@ -151,6 +151,7 @@ form {
   border: var(--custom-navy) 1px solid;
   padding: 7px;
   border-radius: 5px;
+  max-height: 20%;
 }
 
 /* mute and video toggle */
@@ -205,15 +206,21 @@ textarea {
   margin-bottom: 20px;
 }
 
-@media screen and (min-width: 992px) {
+@media screen and (min-width: 1400px) {
   .brand-logo {
     margin-left: 30px;
   }
 }
 
-@media screen and (max-width: 992px) {
+@media screen and (max-width: 1400px) {
   .custom-container {
     width: 90%;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .chatWindow {
+    height: 50%;
   }
 }
 
