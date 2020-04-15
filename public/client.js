@@ -1,3 +1,5 @@
+// import { doc } from "prettier";
+
 // getting dom elements
 var divSelectRoom = document.getElementById("selectRoom");
 var divConsultingRoom = document.getElementById("consultingRoom");
@@ -5,6 +7,7 @@ var inputRoomNumber = document.getElementById("roomNumber");
 var btnGoRoom = document.getElementById("goRoom");
 var localVideo = document.getElementById("localVideo");
 var remoteVideo = document.getElementById("remoteVideo");
+var divCantJoinMsg = document.getElementById("cantJoinMsg");
 
 // get url parameters
 const queryString = window.location.search;
@@ -38,13 +41,30 @@ btnGoRoom.onclick = function() {
   // roomNumber = inputRoomNumber.value;
   roomNumber = room + "-video"; //this separates this from the socket text chat rooms
   socket.emit("create or join", roomNumber); // emit (create or join)
-  divSelectRoom.style = "display: none;";
-  divConsultingRoom.style = "display: block;";
+  // divSelectRoom.style = "display: none;";
+  // divConsultingRoom.style = "display: block;";
 };
+
+// tell the user the room is full
+socket.on("full", () => {
+  divCantJoinMsg.innerHTML = "";
+  //create span message
+  let span = document.createElement("span");
+  span.textContent = "Sorry, the video chat room is full";
+  //create icon
+  let icon = document.createElement("i");
+  icon.classList.add("material-icons");
+  icon.textContent = "info_outline";
+  
+  divCantJoinMsg.append(icon);
+  divCantJoinMsg.append(span);
+})
 
 // message handlers
 // for the person who creates the room in this example referred to as the caller
 socket.on("created", function(room) {
+  divSelectRoom.style = "display: none;";
+  divConsultingRoom.style = "display: block;";
   navigator.mediaDevices
     .getUserMedia(streamConstraints)
     .then(function(stream) {
@@ -59,6 +79,8 @@ socket.on("created", function(room) {
 
 // event for those who enter the room
 socket.on("joined", function(room) {
+  divSelectRoom.style = "display: none;";
+  divConsultingRoom.style = "display: block;";
   navigator.mediaDevices
     .getUserMedia(streamConstraints)
     .then(function(stream) {

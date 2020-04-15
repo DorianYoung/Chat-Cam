@@ -6,7 +6,6 @@ module.exports = function(io) {
 
     
     socket.on("create or join", function (room) {
-      socket.videoParticipant = true; // this socket has a session 
       console.log("create or join to room ", room);
       socket.room = room;
 
@@ -17,9 +16,11 @@ module.exports = function(io) {
 
       if (numClients == 0) {
         socket.join(room);
+        socket.videoParticipant = true; // this socket has a session 
         socket.emit("created", room); // emits created room
       } else if (numClients == 1) {
         socket.join(room);
+        socket.videoParticipant = true; // this socket has a session 
         socket.emit("joined", room);
       } else {
         socket.emit("full", room);

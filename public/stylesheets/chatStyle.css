@@ -272,6 +272,17 @@
   background-color: var(--custom-dark);
 }
 
+#cantJoinMsg {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#cantJoinMsg i {
+  margin-right: 10px;
+}
+
 @media screen and (max-width: 992px) {
   /* #chat-window {
     height: 30vh;

@@ -26,6 +26,10 @@ socketText.on("joined chat", function(obj) {
   div.classList.add("entered-chat");
   div.textContent = `${obj.user} entered the chat`; // using textContent sanitizes someone trying to use html tags to style it ie <h1>hello</h1>
   chatWindow.append(div);
+
+  // update scroll
+  updateScroll();
+  
   socketText.emit("get users", roomChat); // get the users in the room
 });
 
@@ -142,6 +146,9 @@ socketText.on("chat message", function(obj) {
   divMessage.append(messageName);
   divMessage.append(messageText);
   chatWindow.append(divMessage);
+
+  // update scroll
+  updateScroll();
 });
 
 // show that the user disconnected
@@ -150,6 +157,9 @@ socketText.on("user disconnected", function(obj) {
   div.classList.add("entered-chat");
   div.textContent = `${obj.user} left the chat`; // using textContent sanitizes someone trying to use html tags to style it ie <h1>hello</h1>
   chatWindow.append(div);
+
+  // update scroll
+  updateScroll();
 });
 
 // formats the date to give local time string 7:30 am and also the utc datestring for emitting to other sockets
