@@ -129,40 +129,6 @@ form {
   margin-top: 20px;
 }
 
-/* for chatpage */
-#video-area {
-  margin-top: 15px;
-  height: 70vh;
-}
-
-/* where the messages appear */
-.chatWindow {
-  height: 100%;
-  background-color: var(--custom-light2);
-  border: var(--custom-aqua) 1px solid;
-  padding: 7px;
-  border-radius: 5px;
-}
-
-/* where user inputs chat */
-#chatInput {
-  padding: 0;
-  background-color: var(--custom-light2);
-  border: var(--custom-navy) 1px solid;
-  padding: 7px;
-  border-radius: 5px;
-  max-height: 20%;
-}
-
-/* mute and video toggle */
-.video {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  align-items: center;
-  color: var(--custom-light);
-}
-
 /* change background color to light aqua */
 .success {
   background-color: var(--custom-light);
@@ -179,7 +145,7 @@ form {
 
 /* chat textarea to type messages */
 textarea {
-  color: var(--custom-light2);
+  color: black;
 }
 
 /* adds 10 pixels to margin bottom */
@@ -197,6 +163,10 @@ textarea {
   margin-top: 20px;
 }
 
+.mt-10 {
+  margin-top: 10px;
+}
+
 .bg-grey {
   background-color: #e0e0e0;
 }
@@ -205,6 +175,37 @@ textarea {
   width: 100%;
   margin-bottom: 20px;
 }
+
+/* for chat area in chat2.handlebars */
+/* #video-area {
+  margin-top: 15px;
+  height: 70vh;
+}
+
+.chatWindow {
+  height: 100%;
+  background-color: var(--custom-light2);
+  border: var(--custom-aqua) 1px solid;
+  padding: 7px;
+  border-radius: 5px;
+}
+
+#chatInput {
+  padding: 0;
+  background-color: var(--custom-light2);
+  border: var(--custom-navy) 1px solid;
+  padding: 7px;
+  border-radius: 5px;
+  max-height: 20%;
+}
+
+.video {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  color: var(--custom-light);
+} */
 
 @media screen and (min-width: 1400px) {
   .brand-logo {
@@ -218,7 +219,7 @@ textarea {
   }
 }
 
-@media screen and (max-width: 600px) {
+/* @media screen and (max-width: 600px) {
   .chatWindow {
     height: 50%;
   }
@@ -236,4 +237,4 @@ textarea {
 
 #goRoom {
   margin-top: 10px;
-}
+} */

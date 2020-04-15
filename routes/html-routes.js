@@ -184,7 +184,7 @@ router.get("/chat", isAuthenticated, async (req,res) => {
   }
 
   // if the user does have this in their session 
-  res.render("chat", {layout: false, loggedIn: true, username: req.user.username});
+  res.render("chat2", {layout: false, loggedIn: true, username: req.user.username});
 })
 
 // show logged in user profile

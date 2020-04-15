@@ -1,0 +1,328 @@
+/* meeting ID container */
+#meetingID-container {
+  margin-top: 3px;
+  margin-left: 5px;
+  color: white;
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+  /* background-color: var(--custom-navy); */
+}
+
+#meetingID-container div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  padding-right: 5px;
+  padding-left: 5px;
+  background-color: var(--custom-dark);
+  height: 100%;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  /* cursor: pointer; */
+}
+
+/* #meetingID-container div:hover {
+  background-color: var(--custom-navy);
+  color: var(--custom-light);
+  border-radius: 10px;
+} */
+
+#meetingID-container span {
+  margin-right: 20px;
+}
+
+/* holds both the video and chatbox container */
+.video-chat-container {
+  height: 65vh;
+  background-color: lightgray;
+  padding-top: 15px;
+  /* position: relative; */
+}
+
+#consultingRoom {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+#remoteVideo {
+  min-width: 100%;
+  object-fit: contain;
+}
+
+#localVideo {
+  position: absolute;
+  width: 150px;
+  bottom: 10px;
+  right: 10px;
+}
+
+/* sizing for the video elements */
+/* video {
+  min-width: 100%;
+  object-fit: contain;
+}
+
+#localVideo {
+  position: absolute;
+  object-fit: none;
+  max-width: 100px;
+  bottom: 10px;
+  right: 100px;
+} */
+
+/* gives container a height of 100% to match the parent elements height */
+.height-100 {
+  height: 100%;
+}
+
+/* chatbox container */
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  height: 100%;
+  border-radius: 4px;
+}
+
+/* title for the chat-container */
+#chat-window-title {
+  background-color: var(--custom-dark);
+  color: white;
+  width: 100%;
+  text-align: center;
+  letter-spacing: 1px;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+}
+
+/* middle portion of chat container: holds the text messages */
+#chat-window {
+  flex: 1 1 auto;
+  background-color: white;
+  font-size: 14px;
+  overflow: auto;
+  padding: 5px;
+}
+
+/* view participants button */
+#view-participants {
+  justify-self: flex-end;
+  padding: 1px;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* messages portion */
+/* messages portion */
+/* container that holds whole message: includes, name, text and time */
+.message {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  margin-bottom: 10px;
+}
+
+/* text that says "bob entered the chat" */
+.entered-chat {
+  margin-bottom: 10px;
+  text-align: center;
+  color: rgb(27, 136, 136);
+}
+
+.message-name {
+  margin-right: 7px;
+  /* this padding has to match the padding-top of .message-text  */
+  /* this is in order to center the height of the message and name */
+  padding-top: 4px;
+}
+
+.message-name-me {
+  margin-left: 7px;
+  /* this padding has to match the padding-top of .message-text  */
+  /* this is in order to center the height of the message and name */
+  padding-top: 4px;
+}
+
+.message-text {
+  background-color: #e0e0e0;
+  padding: 4px 10px;
+  border-radius: 4px;
+
+  /* from CSS Tricks:  for word wrapping  */
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  -ms-word-break: break-all;
+  word-break: break-all;
+  word-break: break-word;
+  /* Adds a hyphen where the word breaks, if supported (No Blink) */
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+}
+
+/* add on for .message-text */
+.text-me {
+  background-color: rgb(53, 203, 253);
+}
+
+/* time  */
+.message-text span {
+  /* align-self: flex-end; */
+  margin-left: 10px;
+  color: #00000075;
+  float: right;
+  /* have to match the padding */
+  margin-right: 5px;
+}
+
+.me {
+  flex-direction: row-reverse;
+}
+
+/* textarea portion */
+/* div that holds chat textarea */
+.input-message {
+  background-color: white;
+  border-radius: 4px;
+}
+
+/* the textarea that will submit messages */
+#chatTextarea {
+  background-color: white;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+/* modal portion */
+/*  */
+/*  */
+#show-users-menubar {
+  background-color: var(--custom-navy);
+  height: 25px;
+  text-align: right;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+/* div that holds the icon that acts as the close button */
+#exit-users {
+  display: flex;
+  align-items: center;
+  width: 40px;
+  height: 100%;
+  text-align: right;
+  justify-content: flex-end;
+  border-radius: 0px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+#exit-users:hover {
+  background-color: var(--custom-light);
+}
+
+#exit-users:active {
+  background-color: rgb(170, 60, 60);
+}
+
+#exit-users i {
+  margin-right: 5px;
+  color: darkgrey;
+}
+
+.modal .modal-content {
+  max-height: 300px;
+  overflow-y: auto;
+  padding-top: 10px;
+}
+
+.modal {
+  max-width: 300px;
+}
+
+.modal h5 {
+  margin-top: 5px;
+}
+
+.mb-0 {
+  margin-bottom: 0px;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.block {
+  display: block;
+  width: 100%;
+  border: none;
+  background-color: var(--custom-blue);
+  padding: 10px 10px;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
+  color: white;
+  transition: all 0.2s ease;
+}
+
+.block:hover {
+  background-color: var(--custom-navy);
+}
+
+.block:active {
+  background-color: var(--custom-dark);
+}
+
+@media screen and (max-width: 992px) {
+  /* #chat-window {
+    height: 30vh;
+  }
+  #remoteVideo {
+    height: 30vh;
+  } */
+}
+
+@media screen and (max-width: 700px) {
+  .btn {
+    font-size: 10px;
+  }
+
+  .message-text {
+    padding: 4px;
+    font-size: 0.9rem;
+  }
+
+  .message-name {
+    font-size: 0.9rem;
+    margin-right: 10px;
+    padding-top: 4px;
+  }
+
+  .message-name-me {
+    font-size: 0.9rem;
+    margin-left: 10px;
+    padding-top: 4px;
+  }
+
+  /* meeting id text */
+  #meetingID-container {
+    font-size: 10px;
+  }
+
+  #localVideo {
+    width: 100px;
+  }
+}
