@@ -237,3 +237,7 @@ textarea {
 #goRoom {
   margin-top: 10px;
 }
+
+li.indicator-item.active{
+  background-color: aquamarine !important;
+}
