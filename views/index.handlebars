@@ -20,23 +20,23 @@
     <div class="slider">
       <ul class="slides">
         <li>
-          {{!-- <img src="https://lorempixel.com/580/250/nature/2"> <!-- random image --> --}}
+          <img src="/Assets/stockZoom.jpg">
           <div class="caption left-align">
             <h3>Secure</h3>
-            <h5 class="light grey-text text-lighten-3">Peer to Peer Chat with Unique Single Use Room Codes.</h5>
+            <h5 class="navy-text text-lighten-3">Peer to Peer Chat with Unique Single Use Room Codes.</h5>
           </div>
         </li>
         <li>
-          {{!-- <img src="https://lorempixel.com/580/250/nature/3"> <!-- random image --> --}}
+          <img src="/Assets/stockComputerGuy.jpg">
           <div class="caption left-align">
             <h3>Free</h3>
             <h5 class="light grey-text text-lighten-3">Unlimited access for Registered Users.</h5>
           </div>
         </li>
         <li>
-          {{!-- <img src="https://lorempixel.com/580/250/nature/3"> <!-- random image --> --}}
+          <img src="/Assets/stockComputer.jpg">
           <div class="caption left-align">
-            <h3>Intuitive</h3>
+            <h3 id="intText">Intuitive</h3>
             <h5 class="light grey-text text-lighten-3">Simple 3 Step User Interface</h5>
             <h5 class="light grey-text text-lighten-3">One. Creat a room.</h5>
             <h5 class="light grey-text text-lighten-3">Two. Share the confrence room number.</h5>
@@ -50,9 +50,11 @@
       <div class="col s4 offset-s4 center-align">
         <form action="/" method="POST" id="joinForm">
           <input type="text" name="roomName" placeholder="Room Number">
+          <input type="submit" value="Join Room" name="joinRoom">
         </form>
         <form action="/" method="POST" , id="createForm">
           <input type="submit" value="Create Room" name="createRoom">
+
         </form>
       </div>
     </div>
@@ -79,11 +81,14 @@
         <div class="col l4 offset-l2 s12">
           <h5 class="white-text">Roster</h5>
           <ul>
-            <li><a class="grey-text text-lighten-3" href="https://wbrink.github.io/">Will Brink</a></li>
-            <li><a class="grey-text text-lighten-3" href="https://github.com/DorianYoung">Dorian Young</a></li>
-            <li><a class="grey-text text-lighten-3" href="https://aaron32365.github.io/Portfolio/">Aaron Williams</a>
+            <li><a class="grey-text text-lighten-3" href="https://wbrink.github.io/" target="_blank">Will Brink</a></li>
+            <li><a class="grey-text text-lighten-3" href="https://github.com/DorianYoung" target="_blank">Dorian
+                Young</a></li>
+            <li><a class="grey-text text-lighten-3" href="https://aaron32365.github.io/Portfolio/" target="_blank">Aaron
+                Williams</a>
             </li>
-            <li><a class="grey-text text-lighten-3" href="https://sheapa.github.io/portfolio/">Patrick Shea</a></li>
+            <li><a class="grey-text text-lighten-3" href="https://sheapa.github.io/portfolio/" target="_blank">Patrick
+                Shea</a></li>
           </ul>
         </div>
       </div>

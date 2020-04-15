@@ -176,37 +176,6 @@ textarea {
   margin-bottom: 20px;
 }
 
-/* for chat area in chat2.handlebars */
-/* #video-area {
-  margin-top: 15px;
-  height: 70vh;
-}
-
-.chatWindow {
-  height: 100%;
-  background-color: var(--custom-light2);
-  border: var(--custom-aqua) 1px solid;
-  padding: 7px;
-  border-radius: 5px;
-}
-
-#chatInput {
-  padding: 0;
-  background-color: var(--custom-light2);
-  border: var(--custom-navy) 1px solid;
-  padding: 7px;
-  border-radius: 5px;
-  max-height: 20%;
-}
-
-.video {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  align-items: center;
-  color: var(--custom-light);
-} */
-
 @media screen and (min-width: 1400px) {
   .brand-logo {
     margin-left: 30px;
@@ -219,26 +188,19 @@ textarea {
   }
 }
 
-/* @media screen and (max-width: 600px) {
-  .chatWindow {
-    height: 50%;
-  }
-}
-
-#localVideo {
-  max-width: 100%;
-  min-height: 100%;
-}
-
-#remoteVideo {
-  max-width: 100%;
-  min-height: 100%;
-}
-
-#goRoom {
-  margin-top: 10px;
-} */
-
 li.indicator-item.active {
   background-color: aquamarine !important;
+}
+
+.slider {
+  background-color: var(--custom-aqua);
+}
+
+h3,
+h5 {
+  color: var(--custom-blue);
+}
+
+#intText {
+  color: var(--custom-dark);
 }

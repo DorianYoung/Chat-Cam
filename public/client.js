@@ -31,50 +31,48 @@ var isCaller;
 var socket = io();
 
 // the room is chosen and emits (create or join)
-btnGoRoom.onclick = function () {
+btnGoRoom.onclick = function() {
   // if (inputRoomNumber.value === "") {
   //   alert("Please type a room number");
   // } else {
-    // roomNumber = inputRoomNumber.value;
+  // roomNumber = inputRoomNumber.value;
   roomNumber = room + "-video"; //this separates this from the socket text chat rooms
   socket.emit("create or join", roomNumber); // emit (create or join)
   divSelectRoom.style = "display: none;";
   divConsultingRoom.style = "display: block;";
 };
 
-
 // message handlers
 // for the person who creates the room in this example referred to as the caller
-socket.on("created", function (room) {
+socket.on("created", function(room) {
   navigator.mediaDevices
     .getUserMedia(streamConstraints)
-    .then(function (stream) {
+    .then(function(stream) {
       localStream = stream;
       localVideo.srcObject = stream;
       isCaller = true; // caller is the person who creates the room
     })
-    .catch(function (err) {
+    .catch(function(err) {
       console.log("An error ocurred when accessing media devices", err);
     });
 });
 
 // event for those who enter the room
-socket.on("joined", function (room) {
+socket.on("joined", function(room) {
   navigator.mediaDevices
     .getUserMedia(streamConstraints)
-    .then(function (stream) {
+    .then(function(stream) {
       localStream = stream;
       localVideo.srcObject = stream;
-      socket.emit("ready", roomNumber); // joiner 
+      socket.emit("ready", roomNumber); // joiner
     })
-    .catch(function (err) {
+    .catch(function(err) {
       console.log("An error ocurred when accessing media devices", err);
     });
 });
 
-
 // sets up candidates don't worry about this
-socket.on("candidate", function (event) {
+socket.on("candidate", function(event) {
   var candidate = new RTCIceCandidate({
     sdpMLineIndex: event.label,
     candidate: event.candidate,
@@ -82,13 +80,14 @@ socket.on("candidate", function (event) {
   rtcPeerConnection.addIceCandidate(candidate);
 });
 
-
 // joiner has emitted ready
 // this event is made for the person who created the room
-socket.on("ready", function () { // joiner has emitted ready which sends it to here
-  if (isCaller) { // if the caller
+socket.on("ready", function() {
+  // joiner has emitted ready which sends it to here
+  if (isCaller) {
+    // if the caller
     rtcPeerConnection = new RTCPeerConnection(iceServers); // sets up caller RTCPeerConnection
-    rtcPeerConnection.onicecandidate = onIceCandidate; // gets and sends ice candidates to the recipient 
+    rtcPeerConnection.onicecandidate = onIceCandidate; // gets and sends ice candidates to the recipient
     rtcPeerConnection.ontrack = onAddStream; // This lets you connect the incoming media to an element to display it, for example.
     //rtcPeerConnection.addTrack(localStream.getTracks()[0], localStream);
     rtcPeerConnection.addTrack(localStream.getTracks()[1], localStream);
@@ -113,10 +112,10 @@ socket.on("ready", function () { // joiner has emitted ready which sends it to h
   }
 });
 
-
-// caller has sent data to callee to 
-socket.on("offer", function (event) {
-  if (!isCaller) { // if callee
+// caller has sent data to callee to
+socket.on("offer", function(event) {
+  if (!isCaller) {
+    // if callee
     rtcPeerConnection = new RTCPeerConnection(iceServers);
     rtcPeerConnection.onicecandidate = onIceCandidate; // set up ice candidates
     rtcPeerConnection.ontrack = onAddStream; // callback to add stream of the callee. when a track is added to the connection. This lets you connect the incoming media to an element to display it, for example.
@@ -140,39 +139,34 @@ socket.on("offer", function (event) {
 });
 
 // caller sets sdp description of the callee
-socket.on("answer", function (event) {
+socket.on("answer", function(event) {
   rtcPeerConnection.setRemoteDescription(new RTCSessionDescription(event));
 });
-
 
 socket.on("video user disconnected", function() {
   console.log("user left");
   if (!isCaller) {
     remoteVideo.pause();
-    remoteVideo.removeAttribute('src'); // empty source
+    remoteVideo.removeAttribute("src"); // empty source
     remoteVideo.load();
 
-    // remove and then add the video element back 
+    // remove and then add the video element back
     removeReplaceVideo();
 
-  
     localVideo.pause();
-    localVideo.removeAttribute('src'); // empty source
+    localVideo.removeAttribute("src"); // empty source
     localVideo.load();
-    socket.emit("leave room"); // leave room 
+    socket.emit("leave room"); // leave room
     // try to join room as the caller now
-    socket.emit("create or join", roomNumber); 
+    socket.emit("create or join", roomNumber);
   } else {
     removeReplaceVideo();
   }
-
-  
 });
-
 
 // handler functions
 
-// 
+//
 function onIceCandidate(event) {
   if (event.candidate) {
     console.log("sending ice candidate");
@@ -191,12 +185,11 @@ function onAddStream(event) {
   remoteStream = event.stream;
 }
 
-
 function removeReplaceVideo() {
   remoteVideo.remove();
   remoteVideo = document.createElement("video");
   remoteVideo.autoplay = true;
-  remoteVideo.setAttribute('id', 'remoteVideo');
+  remoteVideo.setAttribute("id", "remoteVideo");
   remoteVideo.classList.add("responsive-video");
   divConsultingRoom.append(remoteVideo);
 }

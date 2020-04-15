@@ -19,7 +19,7 @@ app.use(express.static("public"));
 // you need to connect database to express session middleware. there are stores for most database implementations
 var SequelizeStore = require("connect-session-sequelize")(session.Store);
 var myStore = new SequelizeStore({
-  db: db.sequelize
+  db: db.sequelize,
 });
 
 // We need to use sessions to keep track of our user's login status
@@ -32,8 +32,8 @@ app.use(
     cookie: {
       // setting httpOnly: true and secure: true will help avoid session hijacking
       httpOnly: true, // this is the defualt value
-      secure: false // this should be true if there is going to be an https connection // the cookie will not be sent if secure: true and the site is accessed over http not https
-    }
+      secure: false, // this should be true if there is going to be an https connection // the cookie will not be sent if secure: true and the site is accessed over http not https
+    },
   })
 );
 app.use(express.urlencoded({ extended: false }));
@@ -49,12 +49,10 @@ app.set("view engine", "handlebars");
 const htmlRoutes = require("./routes/html-routes");
 app.use(htmlRoutes);
 
-
 // listens for the socket connections
 require("./socketChat")(io);
 
-
-db.sequelize.sync({force: true}).then(function() {
+db.sequelize.sync().then(function() {
   http.listen(PORT, function() {
     console.log(
       "==> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.",
