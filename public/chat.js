@@ -8,11 +8,14 @@ const chatTextarea = document.querySelector("#chatTextarea");
 const chatWindow = document.querySelector("#chat-window");
 const modalContent = document.querySelector(".modal-content");
 
+// message submit button
+const submitButton = document.querySelector("#submitButton");
 
 // scroll top for chat window area
-var scrollTop = chatWindow.scrollTop;
-var scrollHeight = chatWindow.scrollHeight;
-var hasScrolled = false;
+// var scrollTop = chatWindow.scrollTop;
+// var scrollHeight = chatWindow.scrollHeight;
+// var clientHeight = chatWindow.clientHeight;
+// var hasScrolled = false;
 
 // if user does enter+ shift down it will not submit the message from textarea
 var shiftDown = false;
@@ -116,6 +119,9 @@ function addMessageToChat() {
   divMessage.append(messageText);
   chatWindow.append(divMessage);
 
+  // do the scrollbar function
+  updateScroll();
+
   // send the message to those in the room
   socketText.emit("chat message", {room: roomChat, user: userChat, utc: utcDateString, msg: msg})
 }
@@ -186,4 +192,34 @@ function formatAMPM(utcDateString) {
   minutes = minutes < 10 ? '0'+minutes : minutes;
   var strTime = hours + ':' + minutes + ' ' + ampm;
   return strTime;
+}
+
+
+submitButton.addEventListener("click", (e) => {
+  addMessageToChat();
+  return;
+})
+
+
+// for the chat window scroll bar
+function updateScroll() {
+  var scrollTop = chatWindow.scrollTop;
+  var scrollHeight = chatWindow.scrollHeight;
+  var clientHeight = chatWindow.clientHeight;
+
+  // if scroll top + client height is less then 80% of the scrollheight then the user has scrolled off the threshold
+  var formula = scrollTop + clientHeight < (scrollHeight - (scrollHeight * 0.20)); 
+
+  // if false then the user has scrolled. If they scroll back within the threshold then automatic scroll to bottom will happen
+  if (formula) {
+    hasScrolled = true // then the user has scrolled up
+  } else {
+    hasScrolled = false;
+  }
+  
+
+  if (!hasScrolled) {
+    //scroll to bottom
+    chatWindow.scrollTop = chatWindow.scrollHeight - chatWindow.clientHeight;
+  } 
 }
