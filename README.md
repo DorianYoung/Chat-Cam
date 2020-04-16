@@ -1,6 +1,6 @@
 # Chat-Cam
 
-![DorianYoung](DEPLOYED URL HERE)
+![DorianYoung]("https://github.com/DorianYoung/Chat-Cam/blob/master/public/Assets/appDeployed.jpg?raw=true")
 
 https://github.com/DorianYoung
 
